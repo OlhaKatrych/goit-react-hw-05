@@ -4,7 +4,7 @@ const URL_TRENDING_MOVIES = "https://api.themoviedb.org/3/trending/movie/day";
 
 const URL_SEARCH_MOVIES = "https://api.themoviedb.org/3/search/movie";
 
-const URL_DETAILS_MOVIES = "https://api.themoviedb.org/3/movie/157336";
+const URL_DETAILS_MOVIES = "https://api.themoviedb.org/3/movie";
 
 const URL_CREDITS_MOVIES = "https://api.themoviedb.org/3/movie/157336/credits";
 
@@ -23,8 +23,8 @@ export default async function getTrendingMovies() {
   return dataTrendingMovies;
 }
 
-async function getSearchMovies() {
-  const response = await axios.get(URL_SEARCH_MOVIES, options);
+async function getSearchMovies(movieId) {
+  const response = await axios.get(`URL_SEARCH_MOVIES/${movieId}`, options);
   const dataSearchMovies = response.data;
   return dataSearchMovies;
 }
