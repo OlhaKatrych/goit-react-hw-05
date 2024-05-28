@@ -1,12 +1,14 @@
 import axios from "axios";
 
-const API_KEY = "2785e7802a2e2a84b762784abb6c4372";
-
 const URL_TRENDING_MOVIES = "https://api.themoviedb.org/3/trending/movie/day";
 
 const URL_SEARCH_MOVIES = "https://api.themoviedb.org/3/search/movie";
 
 const URL_DETAILS_MOVIES = "https://api.themoviedb.org/3/movie/157336";
+
+const URL_CREDITS_MOVIES = "https://api.themoviedb.org/3/movie/157336/credits";
+
+const URL_REVIEWS_MOVIES = "https://api.themoviedb.org/3/movie/157336/reviews";
 
 const options = {
   headers: {
@@ -24,15 +26,34 @@ export default async function getTrendingMovies() {
 async function getSearchMovies() {
   const response = await axios.get(URL_SEARCH_MOVIES, options);
   const dataSearchMovies = response.data;
-  console.log(dataSearchMovies);
   return dataSearchMovies;
 }
 
 async function getDetailsMovies() {
-  const response = await axios.get(`${URL_DETAILS_MOVIES}?${API_KEY}&append_to_response=videos`, options);
-  console.log(response);
+  const response = await axios.get(
+    `${URL_DETAILS_MOVIES}?&append_to_response=videos`,
+    options
+  );
+  const dataDetailsMovies = response.data;
+  console.log(dataDetailsMovies);
+  return dataDetailsMovies;
 }
 
-getDetailsMovies();
+async function getCreditsMovies() {
+  const response = await axios.get(URL_CREDITS_MOVIES, options);
+  const dataCreditsMovies = response.data;
+  return dataCreditsMovies;
+}
 
-export { getSearchMovies, getDetailsMovies };
+async function getReviewsMovies() {
+  const response = await axios.get(URL_REVIEWS_MOVIES, options);
+  const dataReviewsMovies = response.data;
+  return dataReviewsMovies;
+}
+
+export {
+  getSearchMovies,
+  getDetailsMovies,
+  getCreditsMovies,
+  getReviewsMovies,
+};
