@@ -1,11 +1,11 @@
 import css from "./HomePage.module.css";
 
+import MovieList from "../../components/MovieList/MovieList";
 import getTrendingMovies from "../../movies-api";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Loader from "../../components/Loader/Loader";
-import MovieList from "../../components/MovieList/MovieList";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy } from "react";
 
 function HomePage() {
   const [movies, setMovies] = useState([]);
@@ -16,8 +16,8 @@ function HomePage() {
       try {
         setIsError(false);
         setIsLoader(true);
-        const resp = await getTrendingMovies();
-        setMovies(resp);
+        const response = await getTrendingMovies();
+        setMovies(response);
       } catch {
         setIsError(true);
       } finally {
@@ -32,7 +32,7 @@ function HomePage() {
       <h1 className={css.title}>Trending today</h1>
       {isError && <ErrorMessage />}
       {isLoader && <Loader />}
-      {movies.length > 0 && <MovieList datas={movies}/>}
+      {movies.length > 0 && <MovieList datas={movies} />}
     </div>
   );
 }

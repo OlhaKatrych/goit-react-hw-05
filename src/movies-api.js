@@ -23,19 +23,15 @@ export default async function getTrendingMovies() {
   return dataTrendingMovies;
 }
 
-async function getSearchMovies(movieId) {
-  const response = await axios.get(`URL_SEARCH_MOVIES/${movieId}`, options);
+async function getSearchMovies() {
+  const response = await axios.get(URL_SEARCH_MOVIES, options);
   const dataSearchMovies = response.data;
   return dataSearchMovies;
 }
 
-async function getDetailsMovies() {
-  const response = await axios.get(
-    `${URL_DETAILS_MOVIES}?&append_to_response=videos`,
-    options
-  );
+async function getDetailsMovies(movieId) {
+  const response = await axios.get(`${URL_DETAILS_MOVIES}/${movieId}`, options);
   const dataDetailsMovies = response.data;
-  console.log(dataDetailsMovies);
   return dataDetailsMovies;
 }
 

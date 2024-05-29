@@ -3,13 +3,12 @@ import css from "./MovieList.module.css";
 import { Link } from "react-router-dom";
 
 function MovieList({ datas }) {
-  console.log(datas);
   return (
     <ul className={css.list}>
-      {datas.map((data) => {
+      {datas.map(({ id, title }) => {
         return (
-          <li key={data.id}>
-            <Link to="/movies">{data.title}</Link>
+          <li key={id}>
+            <Link to={`/movies/${id}`}>{title}</Link>
           </li>
         );
       })}
