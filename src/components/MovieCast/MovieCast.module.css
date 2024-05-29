@@ -1,0 +1,12 @@
+.list {
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.picture {
+
+    max-width:150px;
+    max-height:200px;
+}

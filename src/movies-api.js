@@ -8,7 +8,7 @@ const URL_DETAILS_MOVIES = "https://api.themoviedb.org/3/movie";
 
 const URL_CREDITS_MOVIES = "https://api.themoviedb.org/3/movie";
 
-const URL_REVIEWS_MOVIES = "https://api.themoviedb.org/3/movie/157336/reviews";
+const URL_REVIEWS_MOVIES = "https://api.themoviedb.org/3/movie";
 
 const options = {
   headers: {
@@ -36,14 +36,21 @@ async function getDetailsMovies(movieId) {
 }
 
 async function getCreditsMovies(movieId) {
-  const response = await axios.get(`URL_CREDITS_MOVIES/${movieId}/${credits}`, options);
-  const dataCreditsMovies = response.data;
+  const response = await axios.get(
+    `${URL_CREDITS_MOVIES}/${movieId}/credits`,
+    options
+  );
+  const dataCreditsMovies = response.data.cast;
   return dataCreditsMovies;
 }
 
-async function getReviewsMovies() {
-  const response = await axios.get(URL_REVIEWS_MOVIES, options);
-  const dataReviewsMovies = response.data;
+async function getReviewsMovies(movieId) {
+  const response = await axios.get(
+    `${URL_REVIEWS_MOVIES}/${movieId}/reviews`,
+    options
+  );
+  const dataReviewsMovies = response.data.results;
+
   return dataReviewsMovies;
 }
 

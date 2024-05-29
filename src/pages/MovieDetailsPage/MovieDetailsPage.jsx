@@ -1,20 +1,27 @@
 import css from "./MovieDetailsPage.module.css";
 
-import { useState, useEffect } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import clsx from "clsx";
+
+import { useState, useEffect, Suspense } from "react";
+import { useParams, NavLink, Outlet, useLocation, Link } from "react-router-dom";
 
 import { getDetailsMovies } from "../../movies-api";
 
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Loader from "../../components/Loader/Loader";
 import MovieInfo from "../../components/MovieInfo/MovieInfo";
-import MovieCast from "../../components/MovieCast/MovieCast";
 
 function MovieDetailsPage() {
+  function addActiveClass({ isActive }) {
+    return clsx(css.link, isActive && css.active);
+  }
+
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null ?? movieId);
   const [isError, setIsError] = useState(false);
   const [isLoader, setIsLoader] = useState(false);
+
+  const location = useLocation();
 
   useEffect(() => {
     if (!movieId) {
@@ -38,15 +45,26 @@ function MovieDetailsPage() {
   return (
     <div>
       {isLoader && <Loader />}
+      <Link>Go back</Link>
       {isError ? <ErrorMessage /> : <MovieInfo movie={movie} />}
       <hr className={css.line} />
       <p className={css.text}>Additional information</p>
       <ul className={css.list}>
         <li>
-          <NavLink to="cast">Cast</NavLink>
+          <NavLink to="cast" className={addActiveClass}>
+            Cast
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="reviews" className={addActiveClass}>
+            Reviews
+          </NavLink>
         </li>
       </ul>
-      <MovieCast movieId={movieId} />
+      <hr className={css.line} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 }
