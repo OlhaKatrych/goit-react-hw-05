@@ -1,14 +1,8 @@
 import axios from "axios";
 
-const URL_TRENDING_MOVIES = "https://api.themoviedb.org/3/trending/movie/day";
-
 const URL_SEARCH_MOVIES = "https://api.themoviedb.org/3/search/movie";
 
-const URL_DETAILS_MOVIES = "https://api.themoviedb.org/3/movie";
-
-const URL_CREDITS_MOVIES = "https://api.themoviedb.org/3/movie";
-
-const URL_REVIEWS_MOVIES = "https://api.themoviedb.org/3/movie";
+axios.defaults.baseURL = "https://api.themoviedb.org/3";
 
 const options = {
   headers: {
@@ -18,7 +12,7 @@ const options = {
 };
 
 export default async function getTrendingMovies() {
-  const response = await axios.get(URL_TRENDING_MOVIES, options);
+  const response = await axios.get("/trending/movie/day", options);
   const dataTrendingMovies = response.data.results;
   return dataTrendingMovies;
 }
@@ -30,25 +24,19 @@ async function getSearchMovies() {
 }
 
 async function getDetailsMovies(movieId) {
-  const response = await axios.get(`${URL_DETAILS_MOVIES}/${movieId}`, options);
+  const response = await axios.get(`/movie/${movieId}`, options);
   const dataDetailsMovies = response.data;
   return dataDetailsMovies;
 }
 
 async function getCreditsMovies(movieId) {
-  const response = await axios.get(
-    `${URL_CREDITS_MOVIES}/${movieId}/credits`,
-    options
-  );
+  const response = await axios.get(`/movie/${movieId}/credits`, options);
   const dataCreditsMovies = response.data.cast;
   return dataCreditsMovies;
 }
 
 async function getReviewsMovies(movieId) {
-  const response = await axios.get(
-    `${URL_REVIEWS_MOVIES}/${movieId}/reviews`,
-    options
-  );
+  const response = await axios.get(`/movie/${movieId}/reviews`, options);
   const dataReviewsMovies = response.data.results;
 
   return dataReviewsMovies;
