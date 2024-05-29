@@ -1,0 +1,29 @@
+body {
+
+    font-size: 11px;
+}
+
+.mainContainer {
+
+    display: flex;
+    gap: 10px;
+}
+
+.container {
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.list {
+
+    display: flex;
+    gap: 10px
+}
+
+.picture {
+
+   max-width:150px;
+   max-height:200px
+}

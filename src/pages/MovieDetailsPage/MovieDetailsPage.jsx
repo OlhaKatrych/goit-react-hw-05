@@ -1,16 +1,20 @@
 import css from "./MovieDetailsPage.module.css";
 
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 
 import { getDetailsMovies } from "../../movies-api";
 
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import Loader from "../../components/Loader/Loader";
+import MovieInfo from "../../components/MovieInfo/MovieInfo";
+import MovieCast from "../../components/MovieCast/MovieCast";
 
 function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null ?? movieId);
   const [isError, setIsError] = useState(false);
+  const [isLoader, setIsLoader] = useState(false);
 
   useEffect(() => {
     if (!movieId) {
@@ -19,11 +23,13 @@ function MovieDetailsPage() {
     async function getMovieById(movieId) {
       try {
         setIsError(false);
+        setIsLoader(true);
         const response = await getDetailsMovies(movieId);
         setMovie(response);
       } catch {
         setIsError(true);
       } finally {
+        setIsLoader(false);
       }
     }
     getMovieById(movieId);
@@ -31,16 +37,16 @@ function MovieDetailsPage() {
 
   return (
     <div>
-      {isError ? (
-        <ErrorMessage />
-      ) : (
-        <img
-          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-          alt={movie.original_title}
-          width="150"
-          height="200"
-        />
-      )}
+      {isLoader && <Loader />}
+      {isError ? <ErrorMessage /> : <MovieInfo movie={movie} />}
+      <hr className={css.line} />
+      <p className={css.text}>Additional information</p>
+      <ul className={css.list}>
+        <li>
+          <NavLink to="cast">Cast</NavLink>
+        </li>
+      </ul>
+      <MovieCast movieId={movieId} />
     </div>
   );
 }

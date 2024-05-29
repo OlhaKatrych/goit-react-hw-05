@@ -6,7 +6,7 @@ const URL_SEARCH_MOVIES = "https://api.themoviedb.org/3/search/movie";
 
 const URL_DETAILS_MOVIES = "https://api.themoviedb.org/3/movie";
 
-const URL_CREDITS_MOVIES = "https://api.themoviedb.org/3/movie/157336/credits";
+const URL_CREDITS_MOVIES = "https://api.themoviedb.org/3/movie";
 
 const URL_REVIEWS_MOVIES = "https://api.themoviedb.org/3/movie/157336/reviews";
 
@@ -35,8 +35,8 @@ async function getDetailsMovies(movieId) {
   return dataDetailsMovies;
 }
 
-async function getCreditsMovies() {
-  const response = await axios.get(URL_CREDITS_MOVIES, options);
+async function getCreditsMovies(movieId) {
+  const response = await axios.get(`URL_CREDITS_MOVIES/${movieId}/${credits}`, options);
   const dataCreditsMovies = response.data;
   return dataCreditsMovies;
 }
