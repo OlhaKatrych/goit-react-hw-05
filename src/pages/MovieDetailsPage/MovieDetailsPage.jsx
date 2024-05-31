@@ -3,7 +3,7 @@ import css from "./MovieDetailsPage.module.css";
 import clsx from "clsx";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, useRef } from "react";
 import {
   useParams,
   NavLink,
@@ -29,7 +29,7 @@ function MovieDetailsPage() {
   const [isLoader, setIsLoader] = useState(false);
 
   const location = useLocation();
-  const backLinkHref = location.state ?? "/movies";
+  const backLinkHref = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     if (!movieId) {
@@ -53,7 +53,7 @@ function MovieDetailsPage() {
   return (
     <div>
       {isLoader && <Loader />}
-      <Link className={css.linkGoBack} to={backLinkHref} state={location}>
+      <Link className={css.linkGoBack} to={backLinkHref.current} state={location}>
         {" "}
         <FaLongArrowAltLeft className={css.icon} />
         Go back
