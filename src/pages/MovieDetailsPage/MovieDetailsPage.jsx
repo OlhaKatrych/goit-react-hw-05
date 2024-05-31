@@ -1,9 +1,16 @@
 import css from "./MovieDetailsPage.module.css";
 
 import clsx from "clsx";
+import { FaLongArrowAltLeft } from "react-icons/fa";
 
 import { useState, useEffect, Suspense } from "react";
-import { useParams, NavLink, Outlet, useLocation, Link } from "react-router-dom";
+import {
+  useParams,
+  NavLink,
+  Outlet,
+  useLocation,
+  Link,
+} from "react-router-dom";
 
 import { getDetailsMovies } from "../../movies-api";
 
@@ -22,6 +29,7 @@ function MovieDetailsPage() {
   const [isLoader, setIsLoader] = useState(false);
 
   const location = useLocation();
+  const backLinkHref = location.state ?? "/movies";
 
   useEffect(() => {
     if (!movieId) {
@@ -45,7 +53,11 @@ function MovieDetailsPage() {
   return (
     <div>
       {isLoader && <Loader />}
-      <Link>Go back</Link>
+      <Link className={css.linkGoBack} to={backLinkHref} state={location}>
+        {" "}
+        <FaLongArrowAltLeft className={css.icon} />
+        Go back
+      </Link>
       {isError ? <ErrorMessage /> : <MovieInfo movie={movie} />}
       <hr className={css.line} />
       <p className={css.text}>Additional information</p>

@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const URL_SEARCH_MOVIES = "https://api.themoviedb.org/3/search/movie";
-
 axios.defaults.baseURL = "https://api.themoviedb.org/3";
 
 const options = {
@@ -17,8 +15,14 @@ export default async function getTrendingMovies() {
   return dataTrendingMovies;
 }
 
-async function getSearchMovies() {
-  const response = await axios.get(URL_SEARCH_MOVIES, options);
+async function getSearchMovies(query) {
+  const response = await axios.get(`/search/movie`, {
+    params: { query: query },
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNzg1ZTc4MDJhMmUyYTg0Yjc2Mjc4NGFiYjZjNDM3MiIsInN1YiI6IjY2NTRhZGUwNmFlZjhhMWY5NDVhNjI0ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ilvnS2tcZ_941QhUfT0BEPTzRg1DecWQHbBVf8gz958",
+    },
+  });
   const dataSearchMovies = response.data;
   return dataSearchMovies;
 }
