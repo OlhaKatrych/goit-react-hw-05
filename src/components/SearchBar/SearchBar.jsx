@@ -6,7 +6,7 @@ import { Formik, Form, Field } from "formik";
 
 import toast, { Toaster } from "react-hot-toast";
 
-function SearchBar({ setSearchMovies }) {
+function SearchBar({ onSearch }) {
   return (
     <div>
       {" "}
@@ -16,7 +16,7 @@ function SearchBar({ setSearchMovies }) {
           if (values.search === "") {
             toast.error("Please enter a search term!", { duration: 2000 });
           }
-          setSearchMovies(values.search);
+          onSearch(values.search);
           actions.resetForm();
         }}
       >
