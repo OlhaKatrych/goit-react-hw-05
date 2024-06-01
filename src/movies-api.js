@@ -1,6 +1,7 @@
 import axios from "axios";
 
 axios.defaults.baseURL = "https://api.themoviedb.org/3";
+const API_KEY = "2785e7802a2e2a84b762784abb6c4372";
 
 const options = {
   headers: {
@@ -30,7 +31,7 @@ async function getSearchMovies(query) {
 async function getDetailsMovies(movieId) {
   const response = await axios.get(`/movie/${movieId}`, options);
   const dataDetailsMovies = response.data;
-  return dataDetailsMovies.data;
+  return dataDetailsMovies;
 }
 
 async function getCreditsMovies(movieId) {

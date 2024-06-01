@@ -41,7 +41,6 @@ function MovieDetailsPage() {
         setIsLoader(true);
         const response = await getDetailsMovies(movieId);
         setMovie(response);
-        console.log(movie);
       } catch {
         setIsError(true);
       } finally {
@@ -50,7 +49,7 @@ function MovieDetailsPage() {
     }
     getMovieById();
   }, [movieId]);
-
+  console.log(movie);
   return (
     <div>
       {isLoader && <Loader />}
