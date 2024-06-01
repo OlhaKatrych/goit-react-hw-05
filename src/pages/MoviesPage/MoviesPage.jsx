@@ -11,17 +11,19 @@ import { getSearchMovies } from "../../movies-api";
 
 function MoviesPage() {
   const [movies, setMovies] = useState([]);
-  const [searchMovies, setSearchMovies] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const [isError, setIsError] = useState(false);
   const [isLoader, setIsLoader] = useState(false);
 
+  const query = searchParams.get("query");
+
   useEffect(() => {
-    async function getMovieBySearch(searchMovies) {
+    async function getMovieBySearch(query) {
+      if (!query) return;
       try {
         setIsError(false);
         setIsLoader(true);
-        const response = await getSearchMovies(searchMovies || searchParams.get("query"));
+        const response = await getSearchMovies(query);
         setMovies(response.results);
       } catch {
         setIsError(true);
@@ -29,11 +31,10 @@ function MoviesPage() {
         setIsLoader(false);
       }
     }
-    getMovieBySearch(searchMovies);
-  }, [searchMovies, searchParams]);
+    getMovieBySearch(query);
+  }, [searchParams]);
 
   async function handleSearch(query) {
-    setSearchMovies(query);
     searchParams.set("query", query);
     setSearchParams(searchParams);
   }

@@ -8,8 +8,8 @@ import {
   useParams,
   NavLink,
   Outlet,
-  useLocation,
   Link,
+  useLocation,
 } from "react-router-dom";
 
 import { getDetailsMovies } from "../../movies-api";
@@ -24,7 +24,7 @@ function MovieDetailsPage() {
   }
 
   const { movieId } = useParams();
-  const [movie, setMovie] = useState(null ?? movieId);
+  const [movie, setMovie] = useState(null);
   const [isError, setIsError] = useState(false);
   const [isLoader, setIsLoader] = useState(false);
 
@@ -35,7 +35,7 @@ function MovieDetailsPage() {
     if (!movieId) {
       return;
     }
-    async function getMovieById(movieId) {
+    async function getMovieById() {
       try {
         setIsError(false);
         setIsLoader(true);
@@ -47,13 +47,17 @@ function MovieDetailsPage() {
         setIsLoader(false);
       }
     }
-    getMovieById(movieId);
+    getMovieById();
   }, [movieId]);
 
   return (
     <div>
       {isLoader && <Loader />}
-      <Link className={css.linkGoBack} to={backLinkHref.current} state={location}>
+      <Link
+        className={css.linkGoBack}
+        to={backLinkHref.current}
+        state={location}
+      >
         {" "}
         <FaLongArrowAltLeft className={css.icon} />
         Go back
