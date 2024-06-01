@@ -25,11 +25,10 @@ function MovieInfo({ movie }) {
           <b>Genres:</b>
         </p>
         <ul className={css.list}>
-          {genresMovie
-            ? genresMovie.map((genre) => {
-                return <li key={genre.id}>{genre.name}</li>;
-              })
-            : null}
+          {genresMovie.length > 0 &&
+            genresMovie.map((genre) => {
+              return <li key={genre.id}>{genre.name}</li>;
+            })}
         </ul>
       </div>
     </div>

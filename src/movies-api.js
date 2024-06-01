@@ -30,11 +30,8 @@ async function getSearchMovies(query) {
 async function getDetailsMovies(movieId) {
   const response = await axios.get(`/movie/${movieId}`, options);
   const dataDetailsMovies = response.data;
-  console.log(dataDetailsMovies)
-  return dataDetailsMovies;
+  return dataDetailsMovies.data;
 }
-
-getDetailsMovies()
 
 async function getCreditsMovies(movieId) {
   const response = await axios.get(`/movie/${movieId}/credits`, options);

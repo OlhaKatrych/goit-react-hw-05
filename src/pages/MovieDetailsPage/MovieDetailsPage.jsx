@@ -41,6 +41,7 @@ function MovieDetailsPage() {
         setIsLoader(true);
         const response = await getDetailsMovies(movieId);
         setMovie(response);
+        console.log(movie);
       } catch {
         setIsError(true);
       } finally {
@@ -62,7 +63,8 @@ function MovieDetailsPage() {
         <FaLongArrowAltLeft className={css.icon} />
         Go back
       </Link>
-      {isError ? <ErrorMessage /> : <MovieInfo movie={movie} />}
+      {isError && <ErrorMessage />}
+      {movie && <MovieInfo movie={movie} />}
       <hr className={css.line} />
       <p className={css.text}>Additional information</p>
       <ul className={css.list}>
